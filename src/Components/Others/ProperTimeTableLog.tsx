@@ -17,7 +17,7 @@ export const ProperTimeTableLog = () => {
     }, [])
 
     return (
-      <div className="w-full font-sans p-6 border-b border-black flex flex-col justify-center items-center gap-5">
+      <div className="w-full p-6 border-b border-black flex flex-col justify-center items-center gap-5">
         <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-5">
           <p className="w-full text-3xl text-gray-500 text-center lg:text-left">{viewstate.createCourseVeiw ? 'Create a New Course':'Time Table'}</p>
           {

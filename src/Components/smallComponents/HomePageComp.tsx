@@ -68,7 +68,7 @@ export function HomePageComp({ vals }: HomePageCompProps) {
         // alert("Click here to See update on your calendar!!!")
         alert(`Click here to See update on your calendar!!! : ${dat.data.createdData.htmlLink}`);
       } catch (error) {
-        console.log(error);
+        console.error(error);
         alert("Something went wrong");
       }
     };

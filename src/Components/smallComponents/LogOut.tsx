@@ -9,26 +9,19 @@ function LogOut() {
     <div>
         <button
         className={`max-w-40 ${ bright ?'bg-red-500' :'bg-red-800' } text-white px-6 py-2 text-xl rounded-xl hover:bg-red-700 transition-colors duration-300 font-semibold`}
-        onClick={async()=>{
-            try {
-                const response = await axios.get(`${URL}/gapi/api/logout`,{
-                    headers:{
-                        Authorization:`Beear ${accessToken}`,
-                        username:userInfo.email
-                    },
-                    withCredentials:true
-                })
-                console.log(response.data);
+        onClick={()=>{
+            axios.get(`${URL}/gapi/api/logout`,{
+                headers:{
+                    Authorization:`Beear ${accessToken}`,
+                    username:userInfo.email
+                },
+                withCredentials:true
+            }).then(()=>{
                 navigate('/login');
-            } catch (error) {
+            }).catch((error)=>{
                 console.error(error);
                 alert("Network Error!!!")
-                // if(error && error.code === 'NETWORK ERROR'){
-                // }
-                // else{
-                //     alert("Something went wrong!!!")
-                // }
-            }
+            })
         }}
         >
             <span className={`lg:block hidden`} >LogOut</span>

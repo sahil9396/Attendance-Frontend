@@ -37,7 +37,7 @@ function SignIn() {
             withCredentials:true
         });
         setAccessToken(response.data.token);
-        navigate('/dashboard');
+        redirectToDashBoard();
     }
 
     const login = useGoogleLogin({

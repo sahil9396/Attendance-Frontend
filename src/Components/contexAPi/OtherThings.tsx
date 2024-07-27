@@ -5,7 +5,6 @@ import { useContextApi } from './ContextApi';
 export const URL:string = import.meta.env.VITE_API_URL;
 export const clientId:string = import.meta.env.VITE_API_CLIENT_ID;
 
-
 export const TimePicker = ({ timeSet }: { timeSet: (val: string) => void }) => {
   const [hours, setHours] = useState('');
   const [minutes, setMinutes] = useState('');
