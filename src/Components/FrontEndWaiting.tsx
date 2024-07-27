@@ -20,6 +20,7 @@ function FrontEndWaiting() {
                 },
                 withCredentials:true
             });
+            console.log(user.data);
             setUserInfo({...userInfo,...user.data.dataParses});
             return user.data.dataParses;
         } catch (error) {

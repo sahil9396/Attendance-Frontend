@@ -51,9 +51,9 @@ const App = () => {
     <Context_Pro value={value} >
       <Router>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={ <FrontEndWaiting/>} />
-          <Route path="*" element={<Navigate to="/login" />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
     </Context_Pro>

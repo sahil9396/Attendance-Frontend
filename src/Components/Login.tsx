@@ -19,6 +19,7 @@ function SignIn() {
     const checkLogin = async () => {
         try {
             const response = await axios.get(`${URL}/gapi/api/auth/check`,{withCredentials:true});
+            console.log(response.data);
             if(response.data.LoginIn){
                 setNeedToSignIn(false);
                 setAccessToken(response.data.token.access_token);
