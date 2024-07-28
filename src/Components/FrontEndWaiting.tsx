@@ -25,7 +25,7 @@ function FrontEndWaiting() {
             return user.data.dataParses;
         } catch (error) {
             console.log(error);
-            navigate("/SSS"); // Redirect to the login page
+            navigate("/"); // Redirect to the login page
         }
     }
 
@@ -110,7 +110,7 @@ function FrontEndWaiting() {
             }
             setLoaded(false);
         } catch (error) {
-            navigate("/SSS");
+            navigate("/");
         }
     }
     
