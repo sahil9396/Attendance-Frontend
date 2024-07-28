@@ -49,11 +49,11 @@ const App = () => {
 
   return (
     <Context_Pro value={value} >
-      <Router>
+      <Router basename='/SSS'>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/SSS" element={<Login />} />
           <Route path="/dashboard" element={ <FrontEndWaiting/>} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/SSS" />} />
         </Routes>
       </Router>
     </Context_Pro>

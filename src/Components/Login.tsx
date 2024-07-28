@@ -49,6 +49,7 @@ function SignIn() {
     });
 
     useEffect(() => {
+        console.log(URL);
         checkLogin();
     }, [])
 

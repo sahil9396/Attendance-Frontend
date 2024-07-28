@@ -24,7 +24,8 @@ function FrontEndWaiting() {
             setUserInfo({...userInfo,...user.data.dataParses});
             return user.data.dataParses;
         } catch (error) {
-            navigate("/login"); // Redirect to the login page
+            console.log(error);
+            navigate("/SSS"); // Redirect to the login page
         }
     }
 
@@ -109,7 +110,7 @@ function FrontEndWaiting() {
             }
             setLoaded(false);
         } catch (error) {
-            navigate("/login");
+            navigate("/SSS");
         }
     }
     
@@ -118,7 +119,7 @@ function FrontEndWaiting() {
     }
     
     useEffect(() => {
-        accessToken === ''? navigate('/login') : fetchData(accessToken) 
+        accessToken === ''? navigate('/') : fetchData(accessToken) 
     }, [userInfo]);
     
     return (
