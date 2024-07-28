@@ -20,7 +20,6 @@ function FrontEndWaiting() {
                 },
                 withCredentials:true
             });
-            console.log(user.data);
             setUserInfo({...userInfo,...user.data.dataParses});
             return user.data.dataParses;
         } catch (error) {
@@ -123,7 +122,7 @@ function FrontEndWaiting() {
     }, [userInfo]);
     
     return (
-        <div className='bg-black h-screen text-white font-mono'>
+        <div className=' h-screen text-white font-mono'>
             {
                 loaded ? <Loader/> : < AllApp />
             }
