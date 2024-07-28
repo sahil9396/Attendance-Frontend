@@ -5,8 +5,6 @@ import FrontEndWaiting from './Components/FrontEndWaiting.tsx';
 import { Context_Pro } from './Components/contexAPi/ContextApi';
 
 const App = () => {
-  // const clientId = process.env.REACT_APP_CLIENT_ID;
-
   const [futureEvents, setFutureEvents] = useState([]);
   const [allDisabled_count, setAllDisabled_count] = useState([]);
   const [todaysCourses, setTodaysClasses] = useState({

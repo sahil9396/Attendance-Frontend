@@ -14,6 +14,7 @@ function SignIn() {
 
     const redirectToDashBoard =async () => {
         navigate('/dashboard');
+        // console.log('Redirecting to dashboard');
     };
 
     const checkLogin = async () => {
@@ -22,11 +23,13 @@ function SignIn() {
             console.log(response.data);
             if(response.data.LoginIn){
                 setNeedToSignIn(false);
-                setAccessToken(response.data.token.access_token);
+                setAccessToken(response.data.token);
             }
             setLoaderState(false);
         } catch (error:unknown) {
-            alert(`Network Error ${error}`);
+            console.error(error);
+            alert(` ${error}`);
+            // alert(`Network Error ${error}`);
         }
     }
 
@@ -37,7 +40,7 @@ function SignIn() {
             },
             withCredentials:true
         });
-        setAccessToken(response.data.token);
+        setAccessToken(response.data.token.access_token);
         redirectToDashBoard();
     }
 
