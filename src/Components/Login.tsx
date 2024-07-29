@@ -56,6 +56,9 @@ function SignIn() {
     });
 
     useEffect(() => {
+        if (new Date().getHours() < 8 || new Date().getHours() > 18) {
+            setBright(false);
+        }
         checkLogin();
     }, [])
 

@@ -13,7 +13,7 @@ const App = () => {
   });
   const [allcourses, setAllcourses] = useState([]);
   const [day_with_alltheir_courses, setDay_with_alltheir_courses] = useState({first:[],second:[]});
-  const [bright, setBright] = useState(false);
+  const [bright, setBright] = useState(true);
   const [userInfo, setUserInfo] = useState({
       email:'',
       family_name:'',

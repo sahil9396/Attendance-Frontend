@@ -7,8 +7,7 @@ import AllApp from './Others/AllApp';
 import { URL } from './contexAPi/OtherThings';
 
 function FrontEndWaiting() {
-    // setFutureEvents,turner ,setTurner
-    const {userInfo, setUserInfo ,allcourses ,setAllcourses,day_with_alltheir_courses , setDay_with_alltheir_courses,futureEvents,setFutureEvents,turner ,setTurner ,accessToken} = useContextApi();
+    const {userInfo, setUserInfo ,allcourses ,setAllcourses , setDay_with_alltheir_courses,futureEvents,setFutureEvents,turner ,setTurner ,accessToken} = useContextApi();
     const navigate = useNavigate();
     const [loaded, setLoaded] = useState(true);
 

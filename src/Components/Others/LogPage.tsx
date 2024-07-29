@@ -26,7 +26,7 @@ const LogPage = ()=> {
                 onClick={ResetFn}
                 className={`${bright ?'bg-red-400':'bg-red-800'} px-3 rounded-lg font-semibold text-white hover:bg-red-500 transition-colors duration-300`}>Reset Status</button>
             </div>
-            <div className="flex flex-wrap justify-evenly lg:justify-start gap-10 py-3">
+            <div className="flex flex-wrap lg:justify-evenly justify-evenly gap-10 py-3">
                 {
                   allcourses.length ===0 ?<div className="flex justify-center items-center w-full"> < NoCoursesTHings/></div> : (allcourses.map((course:any,id:number) => (
                   <CourseCard key={id} course={course}  />
