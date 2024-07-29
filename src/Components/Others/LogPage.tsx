@@ -38,91 +38,120 @@ const LogPage = ()=> {
 };
 
 const CourseCard = ({ course }: any) => {
-    const { IndivCourse, Totaldays, absent, cancelled, criteria, present, timeofcourse } = course;
-    const [daystogo, setDaystogo] = useState(0);
-    const { bright } = useContextApi();
+  const { IndivCourse, Totaldays, absent, cancelled, criteria, present, timeofcourse } = course;
+  const [daystogo, setDaystogo] = useState(0);
+  const { bright } = useContextApi();
+
+  const more_days_calculater1 = async () => {
+    if (present === 0 && absent === 0) {
+      return;
+    }
+    const buffer_day = 0;
+    let further_days = 0;
+    let stat = Math.round((present + further_days) * 100 / (absent + (present + further_days)));
+    if (stat <= criteria) {
+      while (stat <= (criteria + buffer_day)) {
+        further_days += 1;
+        stat = Math.round((present + further_days) * 100 / (absent + (present + further_days)));
+      }
+    } else if (stat > (criteria + buffer_day)) {
+      while (stat > criteria) {
+        further_days += 1;
+        stat = Math.round((present) * 100 / (absent + (present + further_days)));
+      }
+    }
+    setDaystogo(further_days);
+  };
+
+  const more_days_calculater = async () => {
+    // If there are no records, no further days are needed.
+    if (present === 0 && absent === 0) {
+      setDaystogo(0);
+      return;
+    }
+  
+    // Calculate current attendance percentage
+    const currentPercentage = Math.round((present * 100) / (absent + present));
     
-    const more_days_calculater = async () => {
-      if (present === 0 && absent === 0) {
-        return;
-      }
-      const buffer_day = 0;
-      let further_days = 0;
-      let stat = Math.round((present + further_days) * 100 / (absent + (present + further_days)));
-      if (stat <= criteria) {
-        while (stat <= (criteria + buffer_day)) {
-          further_days += 1;
-          stat = Math.round((present + further_days) * 100 / (absent + (present + further_days)));
-        }
-      } else if (stat > (criteria + buffer_day)) {
-        while (stat > criteria) {
-          further_days += 1;
-          stat = Math.round((present) * 100 / (absent + (present + further_days)));
-        }
-      }
+    // If the current attendance meets or exceeds the criteria, no further days are needed
+    if (currentPercentage >= criteria) {
+      setDaystogo(0);
+      return;
+    }
+  
+    // Calculate the minimum number of additional days required to meet the criteria
+    // Solve for further_days in the equation: (present + further_days) / (absent + present + further_days) * 100 >= criteria
+    const further_days = Math.ceil((criteria * (absent + present) - 100 * present) / (100 - criteria));
+    
+    // If the further_days is more than the remaining days, set it to remaining days
+    const remainingDays = Totaldays - (present + absent);
+    if (further_days > remainingDays) {
+      setDaystogo(remainingDays);
+    } else {
       setDaystogo(further_days);
-      if (Totaldays - further_days <= 0) {
-        // console.log("No days left");
-      }
-    };
-  
-    useEffect(() => {
-      more_days_calculater();
-    }, [present,absent,cancelled]);
-  
-    const attendancePercentage = Math.round(present * 100 / (absent + present)) || 0;
-    const progressColor = attendancePercentage <= criteria ? 'red' : 'green';
-  
-    return (
-      <div className={`min-w-60 max-w-60 border shadow-md rounded-3xl overflow-hidden ${bright ? 'bg-white border-black' : 'bg-gray-800 border-white border-2'}`}>
-        <div className="flex justify-between items-center border-b px-6 py-5">
-          <div className="w-2/3 flex flex-col">
-            <p className="text-2xl font-semibold">{IndivCourse}</p>
-            <div className="text-sm mt-2">
-              <p><strong>Time:</strong> {timeofcourse}</p>
-              <p><strong>Total Days:</strong> {Totaldays}</p>
-              <p><strong>Present:</strong> {present}</p>
-              <p><strong>Absent:</strong> {absent}</p>
-              <p><strong>Cancelled:</strong> {cancelled}</p>
-              <p><strong>Minimum Attendance:</strong> {criteria}%</p>
-            </div>
-          </div>
-          <div className="w-1/3 flex items-center justify-center">
-            <div className="relative w-16 h-16">
-              <svg className="w-full h-full">
-                <circle className="text-gray-300" strokeWidth="4" stroke="currentColor" fill="transparent" r="28" cx="32" cy="32" />
-                <circle
-                  className={`text-${progressColor}-500`}
-                  strokeWidth="4"
-                  strokeDasharray={`${attendancePercentage}, 100`}
-                  strokeLinecap="round"
-                  stroke="currentColor"
-                  fill="transparent"
-                  r="28"
-                  cx="32"
-                  cy="32"
-                />
-              </svg>
-              <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold">
-                {attendancePercentage}%
-              </span>
-            </div>
+    }
+  };
+
+  useEffect(() => {
+    more_days_calculater();
+  }, [present, absent, cancelled]);
+
+  const attendancePercentage = Math.round(present * 100 / (absent + present)) || 0;
+  const progressColor = attendancePercentage <= criteria ? 'red' : 'green';
+  const remainingDays = Totaldays - (present + absent + cancelled);
+
+  return (
+    <div className={`min-w-60 max-w-60 border shadow-md rounded-3xl overflow-hidden ${bright ? 'bg-white border-black' : 'bg-gray-800 border-white border-2'}`}>
+      <div className="flex justify-between items-center border-b px-6 py-5">
+        <div className="w-2/3 flex flex-col">
+          <p className="text-2xl font-semibold">{IndivCourse}</p>
+          <div className="text-sm mt-2">
+            <p><strong>Time:</strong> {timeofcourse}</p>
+            <p><strong>Total Days:</strong> {Totaldays}</p>
+            <p><strong>Present:</strong> {present}</p>
+            <p><strong>Absent:</strong> {absent}</p>
+            <p><strong>Cancelled:</strong> {cancelled}</p>
+            <p><strong>Minimum Attendance:</strong> {criteria}%</p>
           </div>
         </div>
-        <div className="px-4 py-4 text-center">
-          {daystogo === 0 ? (
-            <strong className="text-green-500">You are on track</strong>
-          ) : (
-            <div className="flex justify-center items-center gap-2">
-              <span className="text-lg font-semibold">{daystogo}</span>
-              <strong className={`text-lg font-semibold ${attendancePercentage > criteria ? 'text-green-500' : 'text-red-500'}`}>
-                {attendancePercentage > criteria ? "Your Wish" : "Days"} To Go
-              </strong>
-            </div>
-          )}
+        <div className="w-1/3 flex items-center justify-center">
+          <div className="relative w-16 h-16">
+            <svg className="w-full h-full">
+              <circle className="text-gray-300" strokeWidth="4" stroke="currentColor" fill="transparent" r="28" cx="32" cy="32" />
+              <circle
+                className={`text-${progressColor}-500`}
+                strokeWidth="4"
+                strokeDasharray={`${attendancePercentage}, 100`}
+                strokeLinecap="round"
+                stroke="currentColor"
+                fill="transparent"
+                r="28"
+                cx="32"
+                cy="32"
+              />
+            </svg>
+            <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold">
+              {attendancePercentage}%
+            </span>
+          </div>
         </div>
       </div>
-    );
+      <div className="px-4 py-4 text-center">
+        {daystogo === 0 ? (
+          <strong className="text-green-500">You are on track</strong>
+        ) : remainingDays <= daystogo ? (
+          <strong className="text-red-500">Not enough days left to meet criteria <span className={`${bright?'text-black':'text-white'}`}>{remainingDays}</span></strong>
+        ) : (
+          <div className="flex justify-center items-center gap-2">
+            <span className="text-lg font-semibold">{daystogo}</span>
+            <strong className={`text-lg font-semibold ${attendancePercentage > criteria ? 'text-green-500' : 'text-red-500'}`}>
+              {attendancePercentage > criteria ? "Your Wish" : "Days"} To Go
+            </strong>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default LogPage

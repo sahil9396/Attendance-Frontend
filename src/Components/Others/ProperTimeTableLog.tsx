@@ -41,9 +41,8 @@ export const ProperTimeTableLog = () => {
     )
 }
 
-const OptionButton = ({clickFunction , viewstateOption , optionName}:any) =>{
+export const OptionButton = ({clickFunction , viewstateOption , optionName}:any) =>{
   const { bright}  = useContextApi();
-  // console.log(viewstateOption);
   return(
     <button 
       onClick={clickFunction}

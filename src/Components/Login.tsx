@@ -68,7 +68,7 @@ function SignIn() {
 
     return (
         <div className={`h-screen bg-black flex flex-col text-white font-bold ${bright ? 'bg-white':'bg-black'}`}>
-            <div className={`flex justify-end w-full px-12 py-5`}>
+            <div className={`flex justify-end w-full px-12 py-5 border-b ${bright ? 'border-gray-200' : 'border-gray-700'} shadow-md`}>
                 <button
                     onClick={()=>{
                         setBright(!bright);
