@@ -42,27 +42,6 @@ const CourseCard = ({ course }: any) => {
   const [daystogo, setDaystogo] = useState(0);
   const { bright } = useContextApi();
 
-  const more_days_calculater1 = async () => {
-    if (present === 0 && absent === 0) {
-      return;
-    }
-    const buffer_day = 0;
-    let further_days = 0;
-    let stat = Math.round((present + further_days) * 100 / (absent + (present + further_days)));
-    if (stat <= criteria) {
-      while (stat <= (criteria + buffer_day)) {
-        further_days += 1;
-        stat = Math.round((present + further_days) * 100 / (absent + (present + further_days)));
-      }
-    } else if (stat > (criteria + buffer_day)) {
-      while (stat > criteria) {
-        further_days += 1;
-        stat = Math.round((present) * 100 / (absent + (present + further_days)));
-      }
-    }
-    setDaystogo(further_days);
-  };
-
   const more_days_calculater = async () => {
     // If there are no records, no further days are needed.
     if (present === 0 && absent === 0) {
