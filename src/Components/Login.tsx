@@ -32,14 +32,20 @@ function SignIn() {
     }
 
     const handleSuccess = async (codeResponse: any) => {
-        const response = await axios.get(`${URL}/gapi/api/oauth2callback`,{
-            headers:{
-              Authorization: `Bearer ${codeResponse.code}`,
-            },
-            withCredentials:true
-        });
-        setAccessToken(response.data.token.access_token);
-        redirectToDashBoard();
+        try {
+            const response = await axios.get(`${URL}/gapi/api/oauth2callback`,{
+                headers:{
+                  Authorization: `Bearer ${codeResponse.code}`,
+                },
+                withCredentials:true
+            });
+            setAccessToken(response.data.token.access_token);
+            redirectToDashBoard();
+        } catch (error:unknown) {
+            console.error(error);
+            alert(` ${error}`);
+            // alert(`Network Error ${error}`);            
+        }
     }
 
     const login = useGoogleLogin({

@@ -73,39 +73,15 @@ function FrontEndWaiting() {
         }
     }
 
-    const fetchAllcourses = async () => {
-        if (allcourses.length !== 0) {
-            return ;
-        }
-        const dat = await axios.get(`${URL}/timetable/getallcourses?assignedBy=${userInfo.email}`);
-        setAllcourses(dat.data.message);
-        return dat.data.message;
-    };
-
-    async function fetchTimeTableData(sending_data: any) {
-        if (sending_data.length === 0) {
-          return;
-        }
-        try {
-            const response = await axios.post(`${URL}/timetable/AlldataforTimeTable?assignedBy=${userInfo.email}` , {courseNames:sending_data},{withCredentials:true});
-            setDay_with_alltheir_courses({first:response.data.daysWithTheirCourses,second:response.data.coursesWithTheirDays});
-        } catch (error) {
-        }
-    }
-
     async function DoAllwork(){
         try {
             if (futureEvents.length === 0) {
                 await fetchFutureEvents();
             }
             if (allcourses.length === 0) {
-                const dat = await fetchAllcourses();
-                dat.length !== 0 && await fetchTimeTableData(dat);
-            }
-            else{
-                if (day_with_alltheir_courses.first.length === 0) {
-                    await fetchTimeTableData(allcourses);
-                }
+                const data = await axios.get(`${URL}/timetable/getEverything?assignedBy=${userInfo.email}`);
+                setAllcourses(data.data.allcoursesList);
+                setDay_with_alltheir_courses({first:data.data.daysWithTheirCourses,second:data.data.CourseWise});
             }
             setLoaded(false);
         } catch (error) {

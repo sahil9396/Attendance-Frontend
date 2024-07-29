@@ -28,8 +28,8 @@ const LogPage = ()=> {
             </div>
             <div className="flex flex-row overflow-x-auto justify-evenly lg:justify-start gap-20 py-3">
                 {
-                  allcourses.length ===0 ?<div className="flex justify-center items-center w-full"> < NoCoursesTHings/></div> : (allcourses.map((course:any) => (
-                  <CourseCard key={course.id} course={course}  />
+                  allcourses.length ===0 ?<div className="flex justify-center items-center w-full"> < NoCoursesTHings/></div> : (allcourses.map((course:any,id:number) => (
+                  <CourseCard key={id} course={course}  />
                   )))
                 }
             </div>

@@ -72,8 +72,8 @@ function HomePage() {
             </div>
 
             <div className="flex flex-wrap justify-center lg:justify-normal lg:flex-row items-center gap-10 ">
-              {todaysCourses.courses.map((course:theday) => (
-                <HomePageComp key={course.id} vals={course} />
+              {todaysCourses.courses.map((course:theday,id:number) => (
+                <HomePageComp key={id} vals={course} />
               ))}
             </div>
             
