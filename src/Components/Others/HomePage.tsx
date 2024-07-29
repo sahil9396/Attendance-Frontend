@@ -71,7 +71,7 @@ function HomePage() {
               <p className={`text-xl font-bold ${bright ? '':'text-white'} `}> { todaysCourses.day} </p>
             </div>
 
-            <div className="flex flex-wrap justify-center lg:justify-normal lg:flex-row items-center gap-10 ">
+            <div className="flex flex-wrap  justify-center lg:justify-normal lg:flex-row items-center gap-10 ">
               {todaysCourses.courses.map((course:theday,id:number) => (
                 <HomePageComp key={id} vals={course} />
               ))}

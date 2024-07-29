@@ -64,7 +64,7 @@ function SignIn() {
     }
 
     return (
-        <div className='h-screen bg-black flex flex-col text-white font-bold'>
+        <div className={`h-screen bg-black flex flex-col text-white font-bold ${bright ? 'bg-white':'bg-black'}`}>
             <div className={`flex justify-end w-full px-12 py-5`}>
                 <button
                     onClick={()=>{
@@ -82,7 +82,7 @@ function SignIn() {
                         <div>
                         <button
                             type="button"
-                            className="bg-gray-800 flex justify-center items-center p-3 rounded-lg"
+                            className={`bg-gray-800 flex justify-center items-center p-3 rounded-lg ${bright ? 'bg-black':'bg-white'} ${bright ? 'text-white':'text-black'}`}
                             onClick={() => login()}
                         >
                             Click here to Sign In
@@ -91,7 +91,7 @@ function SignIn() {
                     ) :(
                         <button
                             type="button"
-                            className="bg-gray-800 flex justify-center items-center p-3 rounded-lg"
+                            className={`bg-gray-800 flex justify-center items-center p-3 rounded-lg ${bright ? 'bg-black':'bg-white'} ${bright ? 'text-white':'text-black'}`}
                             onClick={redirectToDashBoard}
                         >
                             Login In

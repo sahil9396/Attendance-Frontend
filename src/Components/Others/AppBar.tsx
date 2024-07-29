@@ -7,15 +7,15 @@ function Appbar() {
   const { bright ,setBright,userInfo } = useContextApi();
 
   return (
-    <div className={`flex items-center justify-between px-4 py-4 ${bright ? 'bg-white' : 'bg-gray-900'} border-b ${bright ? 'border-gray-200' : 'border-gray-700'} shadow-md`}>
+    <div className={`flex flex-col lg:flex-row items-center justify-between px-4 py-4 ${bright ? 'bg-white' : 'bg-gray-900'} border-b ${bright ? 'border-gray-200' : 'border-gray-700'} shadow-md`}>
     {/* <div className={`flex px-5 lg:px-10 items-center justify-between border-b ${ bright ? 'border-black' : 'border-white'} `}> */}
       <div className="lg:px-5 py-5 flex flex-row justify-between gap-3 lg:gap-5 items-center">
         <div className="text-2xl font-bold ">
           <img className="rounded-full w-10" src={userInfo.picture} alt={ userInfo.given_name || userInfo.name} />
         </div>
-        <p className={`lg:text-4xl text-md ${bright ? 'text-black':'text-white'} font-semibold`}>{ userInfo.given_name || userInfo.name}</p>
+        <p className={`lg:text-4xl text-lg ${bright ? 'text-black':'text-white'} font-semibold`}>{ userInfo.given_name || userInfo.name}</p>
       </div>
-      <div className="lg:px-5 text-sm md:text-md py-5 flex flex-col lg:flex-row justify-between gap-3 lg:gap-5 items-center">
+      <div className="lg:px-5 text-sm md:text-md py-5 flex flex-row justify-between gap-3 lg:gap-5 items-center">
         <button
           onClick={()=>{
             setBright(!bright);
