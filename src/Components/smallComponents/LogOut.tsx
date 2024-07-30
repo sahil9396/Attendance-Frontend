@@ -24,8 +24,9 @@ function LogOut() {
             })
         }}
         >
-            <span className={`lg:block hidden`} >LogOut</span>
-            <span className={`lg:hidden block`} >Out</span>
+            <span >LogOut</span>
+            {/* <span className={`lg:block hidden`} >LogOut</span>
+            <span className={`lg:hidden block`} >Out</span> */}
         </button>
     </div>
     )

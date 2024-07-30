@@ -73,7 +73,7 @@ function HomePage() {
               <p className={`text-xl font-bold ${bright ? 'text-gray-500':`${show ? 'text-white':'text-gray-500'}`} `}> { todaysCourses.day} </p>
               <OptionButton clickFunction={()=>setShow(!show)} viewstateOption={!show}  optionName='Extra Class'/>
             </div>
-            <div className="flex flex-wrap justify-center lg:flex-row items-center gap-10 ">
+            <div className="flex flex-wrap justify-evenly lg:flex-row items-center gap-10 ">
               {
                 show ? todaysCourses.courses.map((course:theday,id:number) => (
                   <HomePageComp key={id} vals={course} />
