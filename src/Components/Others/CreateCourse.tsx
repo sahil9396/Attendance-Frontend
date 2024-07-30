@@ -14,16 +14,16 @@ interface InputDataType {
   cancelled: number;
   criteria: number;
 }
-const InputTaker = ({ attri, handler }:{attri:string, handler:any}) => {
+export const InputTaker = ({ attri, handler }:{attri:string, handler:any}) => {
   const { bright } = useContextApi();
   return (
-    <div>
+    <div >
       <input className={`text-lg border-b ${bright ? 'border-black bg-white' : 'bg-black border-white'} text-center py-2`} type="text" placeholder={attri} onChange={handler} />
     </div>
   );
 };
 
-const DaySelector = ({
+export const DaySelector = ({
   day,
   isSelected,
   toggleDay
@@ -37,7 +37,7 @@ const DaySelector = ({
   return (
     <div
       onClick={toggleDay}
-      className={`py-2 px-4 rounded-lg hover:scale-125 ${isSelected ? `bg-blue-500 hover:text-black ${bright ? ' text-white ' : ''}` : `${bright ? 'bg-gray-100 text-black ' : 'bg-gray-500 text-black hover:text-white'}`} shadow-md cursor-pointer transition-colors`}
+      className={` py-2 px-4 rounded-lg hover:scale-125 ${isSelected ? `bg-blue-500 hover:text-black ${bright ? ' text-white ' : ''}` : `${bright ? 'bg-gray-100 text-black ' : 'bg-gray-500 text-black hover:text-white'}`} shadow-md cursor-pointer transition-colors`}
     >
       {day}
     </div>
@@ -103,9 +103,7 @@ export const CreateCourse = () => {
     }
 
     try {
-      const selectedDays = Object.entries(daycheck)
-        .filter(val => val[1] === true)
-        .map(val => val[0]);
+      const selectedDays = Object.entries(daycheck).filter(val => val[1] === true).map(val => val[0]);
       
       if (selectedDays.length === 0) {
         alert("Please select at least one day.");

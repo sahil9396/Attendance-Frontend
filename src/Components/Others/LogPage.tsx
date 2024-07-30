@@ -2,13 +2,17 @@ import { useState,useEffect } from "react"
 import axios from "axios"
 import { useContextApi } from "../contexAPi/ContextApi";
 import { NoCoursesTHings, URL } from "../contexAPi/OtherThings";
+import { ChangeThings } from "../smallComponents/ChangeThings";
+import { OptionButton } from './ProperTimeTableLog';
 
 const LogPage = ()=> {
-    const {allcourses ,bright,userInfo,setAllcourses} = useContextApi();
+    const {allcourses ,bright,userInfo,setAllcourses,accessToken} = useContextApi();
+    const [Viewer, setViewer] = useState(false);
     const ResetFn =()=>{
-      axios.put(`${URL}/timetable/updater/resetAttendance`,{assignedBy:userInfo.email}).then(()=>{
-        // console.log(respn.data);
-        alert("Changes Done!!!");
+      axios.put(`${URL}/timetable/updater/resetAttendance`,{assignedBy:userInfo.email},{withCredentials:true , headers:{
+        Authorization:`Beeaer ${accessToken}`
+      }}).then(()=>{
+        alert("Changes Done And refresh to see it!!!");
         setAllcourses(allcourses.map((val:any)=>({...val , present: 0,absent: 0,cancelled: 0})))
         localStorage.clear()
       }).catch( (error)=>alert(error))
@@ -20,19 +24,29 @@ const LogPage = ()=> {
     }
     return (
         <div className={`w-full flex flex-col gap-3 border-b ${ bright ? 'border-black' : 'border-white'} py-5`}>
-            <div className="w-full  px-5 flex justify-between">
-                <p className='text-2xl font-bold text-gray-400'> List</p>
-                <button 
-                onClick={ResetFn}
-                className={`${bright ?'bg-red-400':'bg-red-800'} px-3 rounded-lg font-semibold text-white hover:bg-red-500 transition-colors duration-300`}>Reset Status</button>
+            <div className="w-full  px-5 flex flex-col lg:flex-row justify-between gap-5">
+                <p className='text-2xl font-bold text-gray-400 text-center'> List</p>
+                <div className="flex justify-center gap-5 px-3" >
+                  {
+                    !Viewer && <button 
+                  onClick={ResetFn}
+                  className={`${bright ?'bg-red-400':'bg-red-800'} px-3 py-2 rounded-lg font-semibold text-white hover:bg-red-500 transition-colors duration-300`}>Reset Status</button>
+                  }
+                  {
+                    allcourses.length !==0 && <OptionButton clickFunction={()=>setViewer(!Viewer)} viewstateOption={Viewer}  optionName='Change Things'/>
+                  }
+                </div>
             </div>
-            <div className="flex flex-wrap lg:justify-evenly justify-evenly gap-10 py-3">
+            {
+              // allcourses.length ===0 ?<div className="flex justify-center items-center w-full"> < NoCoursesTHings/></div> : <div className="flex flex-wrap lg:justify-evenly justify-evenly gap-10 py-3">
+              allcourses.length ===0 ?<div className="flex justify-center items-center w-full"> < NoCoursesTHings/></div> : <div className="flex overflow-x-auto lg:justify-evenly justify-evenly gap-10 py-3">
                 {
-                  allcourses.length ===0 ?<div className="flex justify-center items-center w-full"> < NoCoursesTHings/></div> : (allcourses.map((course:any,id:number) => (
-                  <CourseCard key={id} course={course}  />
-                  )))
+                  Viewer ? <ChangeThings/> : allcourses.map((course:any,id:number)=>(
+                    <CourseCard key={id} course={course}/>
+                  ))
                 }
-            </div>
+              </div>
+            }
         </div>
     );
 };
@@ -80,8 +94,8 @@ const CourseCard = ({ course }: any) => {
   const remainingDays = Totaldays - (present + absent + cancelled);
 
   return (
-    <div className={`min-w-60 max-w-60 border shadow-md rounded-3xl overflow-hidden ${bright ? 'bg-white border-black' : 'bg-gray-800 border-white border-2'}`}>
-      <div className="flex justify-between items-center border-b px-6 py-5">
+    <div className={`min-w-60 max-w-60 border shadow-md rounded-3xl overflow-hidden ${bright ? 'bg-white border-black' : 'shadow-gray-600 border-gray-800'} `}>
+      <div className={`flex justify-between items-center border-b ${bright ? 'border-black':'shadow-gray-600 border-gray-600'}  px-6 py-5`}>
         <div className="w-2/3 flex flex-col">
           <p className="text-2xl font-semibold">{IndivCourse}</p>
           <div className="text-sm mt-2">
