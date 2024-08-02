@@ -5,7 +5,7 @@ import { useContextApi } from "../contexAPi/ContextApi";
 
 export function ExtraClass() {
     // const heightchange = 28;
-    const {todaysCourses,allcourses, bright,userInfo,accessToken} = useContextApi();
+    const {allcourses, bright,userInfo,accessToken} = useContextApi();
     const [selectedOption, setSelectedOption] = useState({
         courseName: "",
         status: "",
@@ -15,7 +15,7 @@ export function ExtraClass() {
             alert("Please select an option!");
             return;
         }
-        const val = todaysCourses.courses.filter((val:any) => val.IndivCourse === selectedOption.courseName)[0];
+        const val = allcourses.filter((val:any) => val.IndivCourse === selectedOption.courseName)[0];
         if(selectedOption.status === "1"){
             val.present += 1;
         } else if(selectedOption.status === "0"){

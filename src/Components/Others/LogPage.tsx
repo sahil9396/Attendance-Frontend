@@ -25,12 +25,13 @@ const LogPage = ()=> {
     return (
         <div className={`w-full flex flex-col gap-3 border-b ${ bright ? 'border-black' : 'border-white'} py-5`}>
             <div className="w-full  px-5 flex flex-col lg:flex-row justify-between gap-5">
-                <p className='text-2xl font-bold text-gray-400 text-center'> List</p>
+              {/* ${bright ? 'text-gray-500':`${ Viewer? 'text-white':'text-gray-500'} */}
+                <p className={`text-2xl font-bold text-gray-400 text-center ${bright ?'text-gray-500':`${ !Viewer? 'text-white':'text-gray-500'}`} `}> List</p>
                 <div className="flex justify-center gap-5 px-3" >
                   {
                     !Viewer && <button 
-                  onClick={ResetFn}
-                  className={`${bright ?'bg-red-400':'bg-red-800'} px-3 py-2 rounded-lg font-semibold text-white hover:bg-red-500 transition-colors duration-300`}>Reset Status</button>
+                      onClick={ResetFn}
+                      className={`${bright ?'bg-red-400':'bg-red-800'} px-3 py-2 rounded-lg font-semibold text-white hover:bg-red-500 transition-colors duration-300`}>Reset Status</button>
                   }
                   {
                     allcourses.length !==0 && <OptionButton clickFunction={()=>setViewer(!Viewer)} viewstateOption={Viewer}  optionName='Change Things'/>

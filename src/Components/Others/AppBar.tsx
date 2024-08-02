@@ -18,7 +18,7 @@ function Appbar() {
         <Icons flow="row" />
       </div>
       <div className='relative block md:hidden '>
-          <div className={`h-full w-1/2 border-2 shadow-lg p-3 overflow-hidden fixed top-0 ${id_num ? '-left-1/2':'left-0'} ${bright ? 'bg-white' : 'bg-gray-900'} z-10 duration-100`}>
+          <div className={`h-full w-1/2 border-2 shadow-lg p-3 overflow-hidden fixed top-0 ${id_num ? '-left-1/2':'left-0'} ${bright ? 'bg-white' : 'bg-gray-900'} z-10 duration-300`}>
             <Icons flow="col" />
           </div>
           <div className='flex justify-end w-full'>

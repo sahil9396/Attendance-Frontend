@@ -83,7 +83,7 @@ export function HomePageComp({ vals }: HomePageCompProps) {
     
 
     return (
-      <div className={`min-h-${60} lg:min-w-96 shadow-md border-2 rounded-2xl overflow-hidden flex flex-col items-center gap-5 py-5  ${Math.round(( vals.present / (vals.present + vals.absent)) * 100) && ( (Math.round((vals.present / (vals.present + vals.absent)) * 100)) <= 75 ? `${ bright ? 'bg-gradient-to-b from-red-300 to-transparent':'shadow-md shadow-red-500' }`:`${ bright ? 'bg-gradient-to-b from-green-300 to-transparent':'shadow-md shadow-green-500' }`)} `}>
+      <div className={`min-h-${60} lg:min-w-96 shadow-md border rounded-2xl overflow-hidden flex flex-col items-center gap-5 py-5  ${Math.round(( vals.present / (vals.present + vals.absent)) * 100) && ( (Math.round((vals.present / (vals.present + vals.absent)) * 100)) <= 75 ? `${ bright ? 'bg-gradient-to-b from-red-300 to-transparent':'shadow-md shadow-red-500 border-red-200' }`:`${ bright ? 'bg-gradient-to-b from-green-300 to-transparent':'shadow-md shadow-green-500 border-green-200' }`)} `}>
         <div className={`min-h-${60 - heightchange} w-full flex justify-evenly items-center `}>{vals.IndivCourse} </div>
         
         <div className={`w-full flex justify-between gap-3 px-3 `}>

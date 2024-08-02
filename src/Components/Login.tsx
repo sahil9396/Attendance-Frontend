@@ -9,6 +9,7 @@ import { useContextApi } from './contexAPi/ContextApi';
 function SignIn() {
     const [needToSignIn, setNeedToSignIn] = useState(true);
     const [loaderState, setLoaderState] = useState(true);
+    const [inputthings, setInputthings] = useState('');
     const navigate = useNavigate();
     const {setAccessToken,setBright,bright} = useContextApi();
 
@@ -55,20 +56,37 @@ function SignIn() {
         scope: 'https://www.googleapis.com/auth/calendar',
     });
 
+    const LoginButton = () => {
+        axios.get(`${URL}/gapi/api/auth/Login?assignedBy=${inputthings}`,{withCredentials:true}).then((response) => {
+            console.log(response.data);
+        }).catch((error) => {
+            console.error(error);
+        });
+    }        
+
     useEffect(() => {
         if (new Date().getHours() < 8 || new Date().getHours() > 18) {
             setBright(false);
         }
         checkLogin();
-    }, [])
+    }, [inputthings])
 
-    if (loaderState) {
-        return <Loader />;
-    }
+    // if (loaderState) {
+    //     return <Loader />;
+    // }
+
+    return(
+        <div className={`h-screen gap-5 bg-black flex flex-col justify-center items-center text-white font-bold ${bright ? 'bg-white':'bg-black'}`}>
+            <input
+            className='px-5 py-3 w-96 rounded-lg bg-gray-800 text-white'
+            type="text" name="Semething" id="123" onChange={(e)=>setInputthings(e.target.value)} />
+            <button className={`px-5 w-36 flex justify-center items-center py-3 rounded-lg ${bright ?'bg-green-300':'bg-gray-800'} hover:bg-gray-200 hover:text-black transition-colors duration-300`} onClick={LoginButton}>Login</button>
+        </div>
+    )
 
     return (
         <div className={`h-screen bg-black flex flex-col text-white font-bold ${bright ? 'bg-white':'bg-black'}`}>
-            <div className={`flex justify-end w-full px-12 py-5 border-b ${bright ? 'border-gray-200' : 'border-gray-700'} shadow-md`}>
+            <div className={`flex justify-end w-full px-12 py-5 border-b ${bright ? 'border-gray-200' : 'border-gray-700'} shadow-md `}>
                 <button
                     onClick={()=>{
                         setBright(!bright);
