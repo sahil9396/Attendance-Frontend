@@ -118,7 +118,10 @@ export function HomePageComp({ vals }: HomePageCompProps) {
   };
   const { todaysCourses, allDisabled_count, setAllDisabled_count, bright, userInfo, accessToken } = useContextApi();
   const weekdaylist = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const [fromLocalStorage, setFromLocalStorage] = useState({ day: "anything", submittedCourses: [] as string[] });
+  const [fromLocalStorage, setFromLocalStorage] = useState<{
+    day: string;
+    submittedCourses: string[];
+  }>({ day: "anything", submittedCourses: []});
 
   const sendData = async () => {
     const today = weekdaylist[new Date().getDay()];
@@ -154,18 +157,17 @@ export function HomePageComp({ vals }: HomePageCompProps) {
     };
 
     try {
-      const dat = await axios.put(
-        `${URL}/timetable/updater/updateAttendance`,
-        { ...formatOfChange, assignedBy: userInfo.email, status: presentDay === "1" ? 'p' : presentDay === "0" ? 'a' : 'c' },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          },
-          withCredentials: true,
-        }
-      );
-
-      const updatedSubmittedCourses = [...fromLocalStorage.submittedCourses, vals.IndivCourse];
+      // const dat = await axios.put(
+      //   `${URL}/timetable/updater/updateAttendance`,
+      //   { ...formatOfChange, assignedBy: userInfo.email, status: presentDay === "1" ? 'p' : presentDay === "0" ? 'a' : 'c' },
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${accessToken}`
+      //     },
+      //     withCredentials: true,
+      //   }
+      // );
+      const updatedSubmittedCourses = [...allDisabled_count, vals.IndivCourse];
       const updatedLocalStorage = {
         day: today,
         submittedCourses: updatedSubmittedCourses
@@ -179,7 +181,7 @@ export function HomePageComp({ vals }: HomePageCompProps) {
         localStorage.setItem("DayCheck", JSON.stringify({ day: today, check: true, submittedCourses: updatedSubmittedCourses }));
       }
 
-      alert(`Click here to See update on your calendar!!! : ${dat.data.createdData.htmlLink}`);
+      // alert(`Click here to See update on your calendar!!! : ${dat.data.createdData.htmlLink}`);
     } catch (error) {
       console.error(error);
       alert("Something went wrong");
@@ -187,10 +189,13 @@ export function HomePageComp({ vals }: HomePageCompProps) {
   };
 
   useEffect(() => {
-    const val = localStorage.getItem('DayCheck');
+    const val:any = localStorage.getItem('DayCheck');
     if (val) {
       const ParsedVal = JSON.parse(val || '');
-      setFromLocalStorage(ParsedVal);
+      if (ParsedVal.day === weekdaylist[new Date().getDay()]) {
+        setFromLocalStorage(ParsedVal);
+        setAllDisabled_count(ParsedVal.submittedCourses);
+      }
     }
   }, []);
 
@@ -212,7 +217,7 @@ export function HomePageComp({ vals }: HomePageCompProps) {
         <button
           onClick={sendData}
           className={`${
-            ((fromLocalStorage.day === weekdaylist[new Date().getDay()] && fromLocalStorage.submittedCourses.includes(vals.IndivCourse)) || (allDisabled_count.includes(vals.IndivCourse)))
+            ((fromLocalStorage.day === weekdaylist[new Date().getDay()] && fromLocalStorage.submittedCourses.includes(vals.IndivCourse)) && (allDisabled_count.includes(vals.IndivCourse)))
               ? `${bright ? 'bg-gray-500' : 'bg-gray-200 text-white'} cursor-not-allowed`
               : `${bright ? 'bg-blue-500' : 'bg-gray-600 text-white'}`
           } text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300`}
