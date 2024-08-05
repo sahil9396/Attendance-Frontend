@@ -24,7 +24,7 @@ const LogPage = ()=> {
     }
     return (
         <div className={`w-full flex flex-col gap-3 border-b ${ bright ? 'border-black' : 'border-white'} py-5`}>
-            <div className="w-full  px-5 flex flex-col lg:flex-row justify-between gap-5">
+            <div className="w-full  px-5 flex flex-col sm:flex-row justify-between gap-5">
               {/* ${bright ? 'text-gray-500':`${ Viewer? 'text-white':'text-gray-500'} */}
                 <p className={`text-2xl font-bold text-gray-400 text-center ${bright ?'text-gray-500':`${ !Viewer? 'text-white':'text-gray-500'}`} `}> List</p>
                 <div className="flex justify-center gap-5 px-3" >
@@ -39,7 +39,6 @@ const LogPage = ()=> {
                 </div>
             </div>
             {
-              // allcourses.length ===0 ?<div className="flex justify-center items-center w-full"> < NoCoursesTHings/></div> : <div className="flex flex-wrap lg:justify-evenly justify-evenly gap-10 py-3">
               allcourses.length ===0 ?<div className="flex justify-center items-center w-full"> < NoCoursesTHings/></div> : <div className="flex overflow-x-auto lg:justify-evenly justify-evenly gap-10 py-3">
                 {
                   Viewer ? <ChangeThings/> : allcourses.map((course:any,id:number)=>(
@@ -96,9 +95,11 @@ const CourseCard = ({ course }: any) => {
 
   return (
     <div className={`min-w-60 max-w-60 border shadow-md rounded-3xl overflow-hidden ${bright ? 'bg-white border-black' : 'shadow-gray-600 border-gray-800'} `}>
-      <div className={`flex justify-between items-center border-b ${bright ? 'border-black':'shadow-gray-600 border-gray-600'}  px-6 py-5`}>
+      <div>
+      <p className={`text-2xl pt-5 font-semibold w-full text-center ${attendancePercentage > criteria ? 'text-green-500' : 'text-red-500'}`}>{IndivCourse}</p>
+      <div className={`flex justify-between items-center border-b ${bright ? 'border-black':'shadow-gray-600 border-gray-600'}  px-6 py-3`}>
         <div className="w-2/3 flex flex-col">
-          <p className="text-2xl font-semibold">{IndivCourse}</p>
+          {/* <p className="text-2xl font-semibold bg-red-400 w-full">{IndivCourse}</p> */}
           <div className="text-sm mt-2">
             <p><strong>Time:</strong> {timeofcourse}</p>
             <p><strong>Total Days:</strong> {Totaldays}</p>
@@ -143,6 +144,7 @@ const CourseCard = ({ course }: any) => {
             </strong>
           </div>
         )}
+      </div>
       </div>
     </div>
   );

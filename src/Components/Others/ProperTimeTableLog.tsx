@@ -32,11 +32,13 @@ export const ProperTimeTableLog = () => {
           </div>
           
         </div>
-        {
-          viewstate.createCourseVeiw ? <CreateCourse /> : (
-              viewstate.CourseVeiw ? <CourseCard courseList={day_with_alltheir_courses.second}/> : (viewstate.DayVeiw ? <DaysList days={day_with_alltheir_courses.first}/> : <CreateCourse />)
-          )
-        }
+        <div className="w-full flex justify-center">
+          {
+            viewstate.createCourseVeiw ? <CreateCourse /> : (
+                viewstate.CourseVeiw ? <CourseCard courseList={day_with_alltheir_courses.second}/> : (viewstate.DayVeiw ? <DaysList days={day_with_alltheir_courses.first}/> : <CreateCourse />)
+            )
+          }
+        </div>
       </div>
     )
 }

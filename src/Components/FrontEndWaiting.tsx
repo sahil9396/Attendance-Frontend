@@ -7,25 +7,9 @@ import AllApp from './Others/AllApp';
 import { URL } from './contexAPi/OtherThings';
 
 function FrontEndWaiting() {
-    const {userInfo, setUserInfo ,allcourses ,setAllcourses , setDay_with_alltheir_courses,futureEvents,setFutureEvents,turner ,setTurner ,accessToken} = useContextApi();
+    const {userInfo ,allcourses ,setAllcourses , setDay_with_alltheir_courses,futureEvents,setFutureEvents,turner ,setTurner ,accessToken} = useContextApi();
     const navigate = useNavigate();
     const [loaded, setLoaded] = useState(true);
-
-    const takeUserInfo = async(token:string)=>{
-        try {
-            const user = await axios.get(`${URL}/gapi/api/userinfo`,{
-                headers:{
-                    Authorization: `Bearer ${token}`
-                },
-                withCredentials:true
-            });
-            setUserInfo({...userInfo,...user.data.dataParses});
-            return user.data.dataParses;
-        } catch (error) {
-            console.log(error);
-            navigate("/"); // Redirect to the login page
-        }
-    }
 
     const other_things = async (showlist:any) => {
         const first_event_time = new Date(showlist[0].start.date);
@@ -87,14 +71,10 @@ function FrontEndWaiting() {
             navigate("/");
         }
     }
-    
-    async function fetchData(token:string) {
-        userInfo.email ? await DoAllwork() : await takeUserInfo(token);
-    }
-    
+
     useEffect(() => {
-        accessToken === ''? navigate('/') : fetchData(accessToken) 
-    }, [userInfo]);
+        accessToken === ''? navigate('/') : DoAllwork()
+    }, []);
     
     return (
         <div className=' h-screen text-white font-mono'>

@@ -12,8 +12,6 @@ interface contextype{
     bright: boolean,
     userInfo: {
         email:string,
-        family_name:string,
-        given_name:string,
         name:string,
         picture:string,
     },
@@ -42,8 +40,6 @@ const contextinput:contextype = {
     bright: true,
     userInfo: {
         email:'',
-        family_name:'',
-        given_name:'',
         name:'',
         picture:'',
     },
