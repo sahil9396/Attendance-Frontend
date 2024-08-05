@@ -157,16 +157,16 @@ export function HomePageComp({ vals }: HomePageCompProps) {
     };
 
     try {
-      // const dat = await axios.put(
-      //   `${URL}/timetable/updater/updateAttendance`,
-      //   { ...formatOfChange, assignedBy: userInfo.email, status: presentDay === "1" ? 'p' : presentDay === "0" ? 'a' : 'c' },
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${accessToken}`
-      //     },
-      //     withCredentials: true,
-      //   }
-      // );
+      const dat = await axios.put(
+        `${URL}/timetable/updater/updateAttendance`,
+        { ...formatOfChange, assignedBy: userInfo.email, status: presentDay === "1" ? 'p' : presentDay === "0" ? 'a' : 'c' },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          },
+          withCredentials: true,
+        }
+      );
       const updatedSubmittedCourses = [...allDisabled_count, vals.IndivCourse];
       const updatedLocalStorage = {
         day: today,
@@ -181,7 +181,7 @@ export function HomePageComp({ vals }: HomePageCompProps) {
         localStorage.setItem("DayCheck", JSON.stringify({ day: today, check: true, submittedCourses: updatedSubmittedCourses }));
       }
 
-      // alert(`Click here to See update on your calendar!!! : ${dat.data.createdData.htmlLink}`);
+      alert(`Click here to See update on your calendar!!! : ${dat.data.createdData.htmlLink}`);
     } catch (error) {
       console.error(error);
       alert("Something went wrong");
