@@ -17,7 +17,7 @@ export const ProperTimeTableLog = () => {
     }, [])
 
     return (
-      <div className="w-full p-6 border-b border-black flex flex-col justify-center items-center gap-5">
+      <div className="w-full p-6  border-black flex flex-col justify-center items-center gap-5">
         <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-5">
           <p className="w-full text-3xl text-gray-500 text-center lg:text-left">{viewstate.createCourseVeiw ? 'Create a New Course':'Time Table'}</p>
           {
@@ -32,18 +32,19 @@ export const ProperTimeTableLog = () => {
           </div>
           
         </div>
-        {
-          viewstate.createCourseVeiw ? <CreateCourse /> : (
-              viewstate.CourseVeiw ? <CourseCard courseList={day_with_alltheir_courses.second}/> : (viewstate.DayVeiw ? <DaysList days={day_with_alltheir_courses.first}/> : <CreateCourse />)
-          )
-        }
+        <div className="w-full flex justify-center">
+          {
+            viewstate.createCourseVeiw ? <CreateCourse /> : (
+                viewstate.CourseVeiw ? <CourseCard courseList={day_with_alltheir_courses.second}/> : (viewstate.DayVeiw ? <DaysList days={day_with_alltheir_courses.first}/> : <CreateCourse />)
+            )
+          }
+        </div>
       </div>
     )
 }
 
-const OptionButton = ({clickFunction , viewstateOption , optionName}:any) =>{
+export const OptionButton = ({clickFunction , viewstateOption , optionName}:any) =>{
   const { bright}  = useContextApi();
-  // console.log(viewstateOption);
   return(
     <button 
       onClick={clickFunction}

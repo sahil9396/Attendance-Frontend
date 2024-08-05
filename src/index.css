@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+$bluebell: #979fd0;
 
 svg {
   width: 100%;
@@ -12,97 +13,28 @@ circle {
 }
 
 
-.loader-26 {
-    width: 50px;
-    height: 50px;
-    display: inline-block;
-    position: relative;
-}
-
-.loader-26::after,
-.loader-26::before {
-    content: '';
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #3490dc;
-    position: absolute;
-    left: 0;
-    top: 0;
-    animation: animloader14 2s linear infinite;
-}
-
-.loader-26::after {
-    animation-delay: 1s;
-}
-
-@keyframes animloader14 {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(0.5);
-    }
-}
-
-.loader-43 {
-  width : 10px;
-  height: 10px;
+.ripple {
+  width: 2rem;
+  height: 2rem;
+  /* margin: 2rem; */
   border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  color: #FFF;
-  left: -100px;
-  animation: shadowRolling 2s linear infinite;
+  border: 0.3rem solid #979fd0;
+  transform: translate(50%);
+  animation: 1s ripple ease-out infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color :rgba(1,1,0,1); */
 }
 
+@keyframes ripple {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
 
-@keyframes shadowRolling {
-  0% {  box-shadow: 0px 0 rgba($lite, 0), 
-                    0px 0 rgba($lite, 0), 
-                    0px 0 rgba($lite, 0), 
-                    0px 0 rgba($lite, 0); 
+  to {
+    transform: scale(1);
+    opacity: 0;
   }
-  12% {  box-shadow: 100px 0 rgba($lite, 1),
-                      0px 0 rgba($lite, 0),
-                      0px 0 rgba($lite, 0), 
-                      0px 0 rgba($lite, 0); 
-  }
-  25% {  box-shadow: 110px 0 rgba($lite, 1), 
-                      100px 0 rgba($lite, 1), 
-                      0px 0 rgba($lite, 0), 
-                      0px 0 rgba($lite, 0); 
-  }
-  36% {  box-shadow: 120px 0 rgba($lite, 1), 
-                      110px 0 rgba($lite, 1), 
-                      100px 0 rgba($lite, 1), 
-                      0px 0 rgba($lite, 0); 
-  }
-  50% {  box-shadow: 130px 0 rgba($lite, 1), 
-                      120px 0 rgba($lite, 1), 
-                      110px 0 rgba($lite, 1), 
-                      100px 0 rgba($lite, 1); 
-  }
-  62% {  box-shadow: 200px 0 rgba($lite, 0), 
-                      130px 0 rgba($lite, 1), 
-                      120px 0 rgba($lite, 1), 
-                      110px 0 rgba($lite, 1); 
-  }
-  75% {  box-shadow: 200px 0 rgba($lite, 0), 
-                      200px 0 rgba($lite, 0), 
-                      130px 0 rgba($lite, 1), 
-                      120px 0 rgba($lite, 1); 
-  }
-  87% {  box-shadow: 200px 0 rgba($lite, 0),
-                      200px 0 rgba($lite, 0), 
-                      200px 0 rgba($lite, 0), 
-                      130px 0 rgba($lite, 1); 
-  }
-  100% {  box-shadow: 200px 0 rgba($lite, 0), 
-                      200px 0 rgba($lite, 0), 
-                      200px 0 rgba($lite, 0), 
-                      200px 0 rgba($lite, 0); 
-  }
-  
 }

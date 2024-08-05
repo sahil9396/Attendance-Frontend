@@ -7,26 +7,9 @@ import AllApp from './Others/AllApp';
 import { URL } from './contexAPi/OtherThings';
 
 function FrontEndWaiting() {
-    // setFutureEvents,turner ,setTurner
-    const {userInfo, setUserInfo ,allcourses ,setAllcourses,day_with_alltheir_courses , setDay_with_alltheir_courses,futureEvents,setFutureEvents,turner ,setTurner ,accessToken} = useContextApi();
+    const {userInfo ,allcourses ,setAllcourses , setDay_with_alltheir_courses,futureEvents,setFutureEvents,turner ,setTurner ,accessToken} = useContextApi();
     const navigate = useNavigate();
     const [loaded, setLoaded] = useState(true);
-
-    const takeUserInfo = async(token:string)=>{
-        try {
-            const user = await axios.get(`${URL}/gapi/api/userinfo`,{
-                headers:{
-                    Authorization: `Bearer ${token}`
-                },
-                withCredentials:true
-            });
-            setUserInfo({...userInfo,...user.data.dataParses});
-            return user.data.dataParses;
-        } catch (error) {
-            console.log(error);
-            navigate("/"); // Redirect to the login page
-        }
-    }
 
     const other_things = async (showlist:any) => {
         const first_event_time = new Date(showlist[0].start.date);
@@ -73,53 +56,25 @@ function FrontEndWaiting() {
         }
     }
 
-    const fetchAllcourses = async () => {
-        if (allcourses.length !== 0) {
-            return ;
-        }
-        const dat = await axios.get(`${URL}/timetable/getallcourses?assignedBy=${userInfo.email}`);
-        setAllcourses(dat.data.message);
-        return dat.data.message;
-    };
-
-    async function fetchTimeTableData(sending_data: any) {
-        if (sending_data.length === 0) {
-          return;
-        }
-        try {
-            const response = await axios.post(`${URL}/timetable/AlldataforTimeTable?assignedBy=${userInfo.email}` , {courseNames:sending_data},{withCredentials:true});
-            setDay_with_alltheir_courses({first:response.data.daysWithTheirCourses,second:response.data.coursesWithTheirDays});
-        } catch (error) {
-        }
-    }
-
     async function DoAllwork(){
         try {
             if (futureEvents.length === 0) {
                 await fetchFutureEvents();
             }
             if (allcourses.length === 0) {
-                const dat = await fetchAllcourses();
-                dat.length !== 0 && await fetchTimeTableData(dat);
-            }
-            else{
-                if (day_with_alltheir_courses.first.length === 0) {
-                    await fetchTimeTableData(allcourses);
-                }
+                const data = await axios.get(`${URL}/timetable/getEverything?assignedBy=${userInfo.email}`);
+                setAllcourses(data.data.allcoursesList);
+                setDay_with_alltheir_courses({first:data.data.daysWithTheirCourses,second:data.data.CourseWise});
             }
             setLoaded(false);
         } catch (error) {
             navigate("/");
         }
     }
-    
-    async function fetchData(token:string) {
-        userInfo.email ? await DoAllwork() : await takeUserInfo(token);
-    }
-    
+
     useEffect(() => {
-        accessToken === ''? navigate('/') : fetchData(accessToken) 
-    }, [userInfo]);
+        accessToken === ''? navigate('/') : DoAllwork()
+    }, []);
     
     return (
         <div className=' h-screen text-white font-mono'>

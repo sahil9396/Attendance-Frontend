@@ -1,9 +1,10 @@
 // import { useContextApi} from '../contextapi/contex_api';
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import { HomePageComp } from '../smallComponents/HomePageComp';
 import { useContextApi} from "../contexAPi/ContextApi";
 import { NoCoursesTHings } from '../contexAPi/OtherThings';
-
+import { OptionButton } from './ProperTimeTableLog';
+import { ExtraClass } from '../smallComponents/ExtraClass';
 export interface theday{
   id:number,
   IndivCourse:string,
@@ -23,6 +24,7 @@ interface todaysCoursesType{
 function HomePage() {
     const {todaysCourses,setTodaysClasses,day_with_alltheir_courses,bright ,  allcourses} = useContextApi();
     const weekdaylist =["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const [show, setShow] = useState(true);
 
     
     const CourseSetter = async () => {
@@ -67,16 +69,17 @@ function HomePage() {
     return (
       <div className='w-full py-10 px-5 '>
           <div className='w-full flex flex-col justify-center gap-10  '>
-            <div className="text-gray-500 flex flex-col lg:flex-row gap-5 lg:gap-0 justify-between items-center ">
-              <p className={`text-xl font-bold ${bright ? '':'text-white'} `}> { todaysCourses.day} </p>
+            <div className="flex flex-col md:flex-row gap-5 lg:gap-0 justify-between items-center ">
+              <p className={`text-xl font-bold ${bright ? 'text-gray-500':`${show ? 'text-white':'text-gray-500'}`} `}> { todaysCourses.day} </p>
+              <OptionButton clickFunction={()=>setShow(!show)} viewstateOption={!show}  optionName='Extra Class'/>
             </div>
-
-            <div className="flex flex-wrap justify-center lg:justify-normal lg:flex-row items-center gap-10 ">
-              {todaysCourses.courses.map((course:theday) => (
-                <HomePageComp key={course.id} vals={course} />
-              ))}
+            <div className="flex flex-wrap justify-evenly lg:flex-row items-center gap-10 ">
+              {
+                show ? todaysCourses.courses.map((course:theday,id:number) => (
+                  <HomePageComp key={id} vals={course} />
+                )) : <ExtraClass />
+              }
             </div>
-            
           </div> 
       </div>
     )

@@ -3,7 +3,7 @@ import { URL } from '../contexAPi/OtherThings';
 import { useContextApi } from '../contexAPi/ContextApi';
 import { useNavigate } from 'react-router-dom';
 function LogOut() {
-    const {accessToken,userInfo,bright} = useContextApi();
+    const {accessToken,userInfo,bright,setAllDisabled_count,setAllcourses,setFutureEvents} = useContextApi();
     const navigate = useNavigate();
     return (
     <div>
@@ -17,6 +17,9 @@ function LogOut() {
                 },
                 withCredentials:true
             }).then(()=>{
+                setAllDisabled_count({first:[],second:[]});
+                setAllcourses([]);
+                setFutureEvents([]);
                 navigate('/login');
             }).catch((error)=>{
                 console.error(error);
@@ -24,8 +27,9 @@ function LogOut() {
             })
         }}
         >
-            <span className={`lg:block hidden`} >LogOut</span>
-            <span className={`lg:hidden block`} >Out</span>
+            <span >LogOut</span>
+            {/* <span className={`lg:block hidden`} >LogOut</span>
+            <span className={`lg:hidden block`} >Out</span> */}
         </button>
     </div>
     )
