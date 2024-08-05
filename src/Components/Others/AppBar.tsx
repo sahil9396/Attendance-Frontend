@@ -10,9 +10,9 @@ function Appbar() {
     <div className={`flex flex-row items-center justify-between px-4 py-4 ${bright ? 'bg-white' : 'bg-gray-900'} border-b ${bright ? 'border-gray-200' : 'border-gray-700'} shadow-md`}>
       <div className="lg:px-5 py-5 flex flex-row justify-between gap-3 lg:gap-5 items-center">
         <div className="text-2xl font-bold ">
-          <img className="rounded-full w-10" src={userInfo.picture} alt={ userInfo.given_name || userInfo.name} />
+          <img className="rounded-full w-10" src={userInfo.picture} alt={ userInfo.name || userInfo.name} />
         </div>
-        <p className={`lg:text-4xl text-lg ${bright ? 'text-black':'text-white'} font-semibold`}>{ userInfo.given_name || userInfo.name}</p>
+        <p className={`lg:text-4xl text-lg ${bright ? 'text-black':'text-white'} font-semibold`}>{ userInfo.name || userInfo.name}</p>
       </div>
       <div className="hidden md:block">
         <Icons flow="row" />
