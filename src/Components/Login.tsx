@@ -116,7 +116,7 @@ const AuthForm = () => {
             </button>
           </div>
           <div className={`tab-content ${activeTab === 'login' ? 'block' : 'hidden'}`}>
-            <form className="flex flex-col">
+            <form className="flex flex-col" autoComplete='off'>
               <div className='mb-6 pb-2 border-b flex justify-between'>
                 <h2 className={`text-2xl  ${bright ? 'text-black border-black' : 'text-white border-white'}`}>Login</h2>
                 <button 
