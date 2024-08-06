@@ -39,7 +39,7 @@ const LogPage = ()=> {
                 </div>
             </div>
             {
-              allcourses.length ===0 ?<div className="flex justify-center items-center w-full"> < NoCoursesTHings/></div> : <div className="flex overflow-x-auto lg:justify-evenly justify-evenly gap-10 py-3">
+              allcourses.length ===0 ?<div className="flex justify-center items-center w-full"> < NoCoursesTHings/></div> : <div className="flex flex-wrap justify-evenly  gap-10 py-3">
                 {
                   Viewer ? <ChangeThings/> : allcourses.map((course:any,id:number)=>(
                     <CourseCard key={id} course={course}/>
